@@ -1,6 +1,7 @@
-import { ImageBackground, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ImageBackground, Image , StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { userContext } from '../components/UserContext'
 
 
 type BienvenidaProp ={
@@ -9,14 +10,20 @@ type BienvenidaProp ={
 
 const image = require("../assets/Background.jpg")
 const Bienvenida:React.FC<BienvenidaProp> = ({navigation}) => {
+  const {user,isLoggedIn} = React.useContext(userContext)
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.imageStyle}>
-        <Text style={styles.welcomeStyle}>Bienvenido</Text>
-        <Text style={styles.messageStyle}>Inicia sesión y descubre esta increíble app</Text>
+        {isLoggedIn?<Text style={styles.welcomeStyle}>Bienvenido, {user}</Text>:
+        <Text style={styles.welcomeStyle}>Bienvenido</Text>}
+        {isLoggedIn?
+        <Text style={styles.messageStyle}>Tampoco hay nada muy interesante, iniciaste sesión pa' na'</Text>:
+        <Text style={styles.messageStyle}>Inicia sesión y descubre esta increíble app</Text>}
+        {isLoggedIn?<Image style={styles.iconStyle} source={require('../assets/peepo.png')}/>:
         <TouchableOpacity style={styles.pressableStyle} onPress={() => navigation.navigate("Login")}>
           <Text style={styles.textStyle}>LOGIN</Text>
         </TouchableOpacity>
+        }
       </ImageBackground>
     </View>
   )
@@ -59,5 +66,8 @@ const styles = StyleSheet.create({
   imageStyle: {
     flex: 1,
     width: '100%'
+  },
+  iconStyle: {
+    alignSelf:'center'
   }
 })

@@ -4,13 +4,14 @@ import { NavigationContainer } from '@react-navigation/native'
 import { DrawerNavigationOptions, createDrawerNavigator } from '@react-navigation/drawer';
 import Bienvenida from '../screens/Bienvenida';
 import Login from '../screens/Login';
+import { userContext } from './UserContext';
 
 
 const image = require("../assets/Background.jpg")
 const Drawer = createDrawerNavigator(); 
 
 const AppDrawer = () => {
-
+    const {isLoggedIn} = React.useContext(userContext)
     const drawerNavigatorScreenOptions: DrawerNavigationOptions = {
         headerTitle: "PGL-CGR",
         headerTitleAlign: "center",
@@ -40,7 +41,10 @@ const AppDrawer = () => {
       <NavigationContainer>
           <Drawer.Navigator initialRouteName="Home" screenOptions={drawerNavigatorScreenOptions}>
             <Drawer.Screen name="Bienvenida" component={Bienvenida} />
+            {isLoggedIn?null:
             <Drawer.Screen name="Login" component={Login} />
+            }
+            
           </Drawer.Navigator>
       </NavigationContainer>   
       </ImageBackground>
