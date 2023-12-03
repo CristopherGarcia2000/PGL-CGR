@@ -1,11 +1,5 @@
 import { StyleSheet, Text, View, ScrollView, ImageBackground, Image } from 'react-native'
 import React from 'react'
-import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import QR from './QR';
-import TabNavigation from '../components/TabNavigation';
-
-const Tab = createBottomTabNavigator();
 
 const Portfolio = () => {
     return (

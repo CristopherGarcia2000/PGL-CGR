@@ -5,7 +5,6 @@ import { DrawerNavigationOptions, createDrawerNavigator } from '@react-navigatio
 import Bienvenida from '../screens/Bienvenida';
 import Login from '../screens/Login';
 import { userContext } from './UserContext';
-import Portfolio from '../screens/Portfolio';
 import TabNavigation from './TabNavigation';
 
 
