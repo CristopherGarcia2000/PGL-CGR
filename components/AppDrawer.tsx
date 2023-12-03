@@ -5,6 +5,8 @@ import { DrawerNavigationOptions, createDrawerNavigator } from '@react-navigatio
 import Bienvenida from '../screens/Bienvenida';
 import Login from '../screens/Login';
 import { userContext } from './UserContext';
+import Portfolio from '../screens/Portfolio';
+import TabNavigation from './TabNavigation';
 
 
 const image = require("../assets/Background.jpg")
@@ -41,10 +43,10 @@ const AppDrawer = () => {
       <NavigationContainer>
           <Drawer.Navigator initialRouteName="Home" screenOptions={drawerNavigatorScreenOptions}>
             <Drawer.Screen name="Bienvenida" component={Bienvenida} />
-            {isLoggedIn?null:
+            {isLoggedIn?
+            <Drawer.Screen name="Portfolio" component={TabNavigation} />:
             <Drawer.Screen name="Login" component={Login} />
             }
-            
           </Drawer.Navigator>
       </NavigationContainer>   
       </ImageBackground>
