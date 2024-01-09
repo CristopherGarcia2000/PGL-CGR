@@ -6,6 +6,7 @@ import Bienvenida from '../screens/Bienvenida';
 import Login from '../screens/Login';
 import { userContext } from './UserContext';
 import TabNavigation from './TabNavigation';
+import MagicCards from '../screens/MagicCards';
 
 
 const image = require("../assets/Background.jpg")
@@ -46,6 +47,7 @@ const AppDrawer = () => {
             <Drawer.Screen name="Portfolio" component={TabNavigation} />:
             <Drawer.Screen name="Login" component={Login} />
             }
+            <Drawer.Screen name="Magic" component={MagicCards}/>
           </Drawer.Navigator>
       </NavigationContainer>   
       </ImageBackground>
