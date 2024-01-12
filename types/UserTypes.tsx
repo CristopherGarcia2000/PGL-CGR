@@ -6,3 +6,11 @@ export type Register = {
 export type Logout = {
     message:string
 }
+export type Login = {
+    name:string,
+    password:string
+}
+export type LoginResponse = {
+    name:string,
+    email:string
+}

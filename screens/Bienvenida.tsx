@@ -12,7 +12,7 @@ type BienvenidaProp = {
 
 const image = require("../assets/Background.jpg")
 const Bienvenida: React.FC<BienvenidaProp> = ({ navigation }) => {
-  const { user, isLoggedIn, toggleIsLoggedIn } = React.useContext(userContext)
+  const { user,loginUser, isLoggedIn, toggleIsLoggedIn } = React.useContext(userContext)
 
   const handleLogOut = async () => {
     const msg: Logout = await postLogoutUser();
@@ -38,7 +38,7 @@ const Bienvenida: React.FC<BienvenidaProp> = ({ navigation }) => {
           </TouchableOpacity> : null
           
         }
-        {isLoggedIn ? <Text style={styles.welcomeStyle}>Bienvenido, {user.name}</Text> :
+        {isLoggedIn ? <Text style={styles.welcomeStyle}>Bienvenido, {user.name == null?user.name:loginUser.name}</Text> :
           <Text style={styles.welcomeStyle}>Bienvenido</Text>}
         {isLoggedIn ?
           <Text style={styles.messageStyle}>Tampoco hay nada muy interesante, iniciaste sesión pa' na'</Text> :
@@ -102,13 +102,13 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   logoutStyle: {
-    backgroundColor: "#5EADBF",
+  backgroundColor: "#5EADBF",
   paddingVertical: 15,
   paddingHorizontal: 20,
   borderRadius: 5,
   position: "absolute",
-  top: 20,  // Ajusta la distancia desde la parte superior según tus preferencias
-  right: 20,  // Ajusta la distancia desde la derecha según tus preferencias
+  top: 20,  
+  right: 20,  
   alignItems: "center",
   },
   textStyle: {

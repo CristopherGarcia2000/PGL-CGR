@@ -1,4 +1,4 @@
-import { Register } from "../types/UserTypes"
+import { Login, Register } from "../types/UserTypes"
 
 export const postRegister = async (url: string, RegisteredUser: Register) => {
 
@@ -24,6 +24,21 @@ export const postLogout = async (url: string) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     }
+  }
+  const response = await fetch(url, init)
+  return response
+}
+export const postLogin = async(url:string,loginUser:Login) => {
+  const init: RequestInit = {
+    method: 'post',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: loginUser.name,
+      password: loginUser.password
+    }),
   }
   const response = await fetch(url, init)
   return response

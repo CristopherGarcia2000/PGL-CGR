@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { userContext,userContextType } from "./UserContext";
 import { postRegisteredUser } from "../services/UserLoginService";
-import { Register } from "../types/UserTypes";
+import { Login, LoginResponse, Register } from "../types/UserTypes";
 
 type UserProviderProps = {
     children: JSX.Element | JSX.Element[]
@@ -17,6 +17,14 @@ type UserProviderProps = {
       email:'',
       password:''
     })
+    const [loginUser,setLoginUser] = useState<Login>({
+      name:'',
+      password:'',
+    })
+    const [loginResponse,setLoginResponse] = useState<LoginResponse>({
+      name:'',
+      email:''
+    })
     const toggleIsLoggedIn = () => {
         setIsLoggedIn(!isLoggedIn)
     }
@@ -27,10 +35,26 @@ type UserProviderProps = {
           password:registeredUser.password
         })
     }
+    const handleLoginUser = (loginUser:Login) => {
+      setLoginUser({
+        name:loginUser.name,
+        password:loginUser.password
+      })
+  }
+    const handleLoginResponse = (loginResponse:LoginResponse) => {
+      setLoginResponse({
+        name:loginResponse.name,
+        email:loginResponse.email
+      })
+    }
 
     const defaultValue: userContextType = {
         user,
         handleUser,
+        loginUser,
+        handleLoginUser,
+        loginResponse,
+        handleLoginResponse,
         isLoggedIn,
         toggleIsLoggedIn
     }
