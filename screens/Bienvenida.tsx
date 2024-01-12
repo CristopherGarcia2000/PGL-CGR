@@ -14,15 +14,20 @@ const Bienvenida:React.FC<BienvenidaProp> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.imageStyle}>
-        {isLoggedIn?<Text style={styles.welcomeStyle}>Bienvenido, {user}</Text>:
+        {isLoggedIn?<Text style={styles.welcomeStyle}>Bienvenido, {user.name}</Text>:
         <Text style={styles.welcomeStyle}>Bienvenido</Text>}
         {isLoggedIn?
         <Text style={styles.messageStyle}>Tampoco hay nada muy interesante, iniciaste sesión pa' na'</Text>:
         <Text style={styles.messageStyle}>Inicia sesión y descubre esta increíble app</Text>}
         {isLoggedIn?<Image style={styles.iconStyle} source={require('../assets/peepo.png')}/>:
-        <TouchableOpacity style={styles.pressableStyle} onPress={() => navigation.navigate("Login")}>
-          <Text style={styles.textStyle}>LOGIN</Text>
+        <TouchableOpacity style={styles.registerStyle} onPress={() => navigation.navigate("Register")}>
+          <Text style={styles.textStyle}>REGISTER</Text>
         </TouchableOpacity>
+        }
+        {isLoggedIn?null:
+        <TouchableOpacity style={styles.loginStyle} onPress={() => navigation.navigate("Login")}>
+        <Text style={styles.textStyle}>LOGIN</Text>
+      </TouchableOpacity>
         }
       </ImageBackground>
     </View>
@@ -47,16 +52,29 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 25
   },
-  pressableStyle: {
+  registerStyle: {
     backgroundColor: "#5EADBF",
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 5,
     position: "absolute",
+    left:15,
     bottom: 100,
-    width: "50%",
+    width: "45%",
     alignItems: "center",
-    alignSelf: "center",
+    alignSelf: 'flex-start',
+  },
+  loginStyle: {
+    backgroundColor: "#5EADBF",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    position: "absolute",
+    right:15,
+    bottom: 100,
+    width: "45%",
+    alignItems: "center",
+    alignSelf: "flex-end",
   },
   textStyle: {
     color: 'white',

@@ -1,7 +1,8 @@
 import React from 'react'
+import { Register } from '../types/UserTypes';
 
 type userContextType = {
-  user: string,
+  user: Register,
   handleUser: Function,  
   isLoggedIn: boolean;
   toggleIsLoggedIn: Function;

@@ -19,9 +19,9 @@ const Login:React.FC<LoginProp> = ({navigation}) => {
         <Text style={styles.loginStyle}>LOGIN</Text>
         <View style={styles.formContainer}>
           <Text style={styles.textStyle}>Usuario</Text>
-          <TextInput style={styles.placeHolderStyle} placeholder='xX_Manolit_Xx' value={user} onChangeText={user => handleUser(user)}/>
+          <TextInput style={styles.placeHolderStyle} placeholder='xX_Manolit_Xx' value={user.name} onChangeText={user => handleUser(user)}/>
           <Text style={styles.textStyle}>Contraseña</Text>
-          <TextInput style={styles.placeHolderStyle}placeholder='No uses 1234' secureTextEntry/>
+          <TextInput style={styles.placeHolderStyle}placeholder='No uses 1234' secureTextEntry value={user.password}/>
         </View>
         <TouchableOpacity style={styles.pressableStyle} onPress={() => {toggleIsLoggedIn();navigation.navigate("Bienvenida")}}>
           <Text style={styles.buttonTextStyle}>LOGIN</Text>

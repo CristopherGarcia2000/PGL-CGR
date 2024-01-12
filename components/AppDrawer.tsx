@@ -6,6 +6,7 @@ import Bienvenida from '../screens/Bienvenida';
 import Login from '../screens/Login';
 import { userContext } from './UserContext';
 import TabNavigation from './TabNavigation';
+import Register from '../screens/Register';
 
 
 const image = require("../assets/Background.jpg")
@@ -44,7 +45,10 @@ const AppDrawer = () => {
             <Drawer.Screen name="Bienvenida" component={Bienvenida} />
             {isLoggedIn?
             <Drawer.Screen name="Portfolio" component={TabNavigation} />:
-            <Drawer.Screen name="Login" component={Login} />
+            <Drawer.Screen name="Register" component={Register} />
+            }
+            {isLoggedIn?null:
+            <Drawer.Screen name="Login" component={Login}/>
             }
           </Drawer.Navigator>
       </NavigationContainer>   
