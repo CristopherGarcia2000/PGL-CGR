@@ -1,5 +1,5 @@
 import { Register } from "../types/UserTypes"
-import { postRegister } from "./RequestService"
+import { postLogout, postRegister } from "./RequestService"
 
 const USER_IP_API = "http://192.168.1.38" //Usar la IP del internet de mi ordenador
 const USER_PORT_API = ":8888"
@@ -15,5 +15,13 @@ export const postRegisteredUser = async(RegisteredUser:Register) => {
     } else {
         return null
     }   
+}
+export const postLogoutUser = async() => {
+    const response = await postLogout(`${USER_IP_API}${USER_PORT_API}${USER_API}${USER_LOGOUT_API}`)
+    if (response.status == 200) {
+        return response.json() 
+    } else {
+        return null
+    }
 }
 

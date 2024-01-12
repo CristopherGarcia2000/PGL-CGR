@@ -18,7 +18,7 @@ type UserProviderProps = {
       password:''
     })
     const toggleIsLoggedIn = () => {
-        setIsLoggedIn(true)
+        setIsLoggedIn(!isLoggedIn)
     }
     const handleUser = (registeredUser:Register) => {
         setUser({

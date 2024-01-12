@@ -1,33 +1,58 @@
-import { ImageBackground, Image , StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ImageBackground, Image, StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native'
 import React from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { userContext } from '../components/UserContext'
+import { postLogoutUser } from '../services/UserLoginService'
+import { Logout } from '../types/UserTypes'
 
 
-type BienvenidaProp ={
+type BienvenidaProp = {
   navigation: StackNavigationProp<any>
 }
 
 const image = require("../assets/Background.jpg")
-const Bienvenida:React.FC<BienvenidaProp> = ({navigation}) => {
-  const {user,isLoggedIn} = React.useContext(userContext)
+const Bienvenida: React.FC<BienvenidaProp> = ({ navigation }) => {
+  const { user, isLoggedIn, toggleIsLoggedIn } = React.useContext(userContext)
+
+  const handleLogOut = async () => {
+    const msg: Logout = await postLogoutUser();
+    if (msg != null) {
+      toggleIsLoggedIn()
+      Alert.alert(
+        'Sesión cerrada',
+        msg.message,
+        [
+          { text: 'OK', onPress: () => navigation.reset({ index: 0, routes: [{ name: 'Bienvenida' }] }) }
+        ]
+      );
+    } else {
+      Alert.alert('Error al cerrar sesión')
+    }
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.imageStyle}>
-        {isLoggedIn?<Text style={styles.welcomeStyle}>Bienvenido, {user.name}</Text>:
-        <Text style={styles.welcomeStyle}>Bienvenido</Text>}
-        {isLoggedIn?
-        <Text style={styles.messageStyle}>Tampoco hay nada muy interesante, iniciaste sesión pa' na'</Text>:
-        <Text style={styles.messageStyle}>Inicia sesión y descubre esta increíble app</Text>}
-        {isLoggedIn?<Image style={styles.iconStyle} source={require('../assets/peepo.png')}/>:
-        <TouchableOpacity style={styles.registerStyle} onPress={() => navigation.navigate("Register")}>
-          <Text style={styles.textStyle}>REGISTER</Text>
-        </TouchableOpacity>
+      {isLoggedIn ? <TouchableOpacity style={styles.logoutStyle} onPress={() => handleLogOut()}>
+            <Text style={styles.textStyle}>Cerrar Sesión</Text>
+          </TouchableOpacity> : null
+          
         }
-        {isLoggedIn?null:
-        <TouchableOpacity style={styles.loginStyle} onPress={() => navigation.navigate("Login")}>
-        <Text style={styles.textStyle}>LOGIN</Text>
-      </TouchableOpacity>
+        {isLoggedIn ? <Text style={styles.welcomeStyle}>Bienvenido, {user.name}</Text> :
+          <Text style={styles.welcomeStyle}>Bienvenido</Text>}
+        {isLoggedIn ?
+          <Text style={styles.messageStyle}>Tampoco hay nada muy interesante, iniciaste sesión pa' na'</Text> :
+          <Text style={styles.messageStyle}>Inicia sesión y descubre esta increíble app</Text>}
+        
+        {isLoggedIn ? <Image style={styles.iconStyle} source={require('../assets/peepo.png')} /> :
+          <TouchableOpacity style={styles.registerStyle} onPress={() => navigation.navigate("Register")}>
+            <Text style={styles.textStyle}>REGISTER</Text>
+          </TouchableOpacity>
+        }
+        {isLoggedIn ? null :
+          <TouchableOpacity style={styles.loginStyle} onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.textStyle}>LOGIN</Text>
+          </TouchableOpacity>
         }
       </ImageBackground>
     </View>
@@ -58,7 +83,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
     position: "absolute",
-    left:15,
+    left: 15,
     bottom: 100,
     width: "45%",
     alignItems: "center",
@@ -70,11 +95,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
     position: "absolute",
-    right:15,
+    right: 15,
     bottom: 100,
     width: "45%",
     alignItems: "center",
     alignSelf: "flex-end",
+  },
+  logoutStyle: {
+    backgroundColor: "#5EADBF",
+  paddingVertical: 15,
+  paddingHorizontal: 20,
+  borderRadius: 5,
+  position: "absolute",
+  top: 20,  // Ajusta la distancia desde la parte superior según tus preferencias
+  right: 20,  // Ajusta la distancia desde la derecha según tus preferencias
+  alignItems: "center",
   },
   textStyle: {
     color: 'white',
@@ -86,6 +121,6 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   iconStyle: {
-    alignSelf:'center'
+    alignSelf: 'center'
   }
 })
