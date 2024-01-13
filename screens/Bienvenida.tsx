@@ -3,7 +3,7 @@ import React from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { userContext } from '../components/UserContext'
 import { postLogoutUser } from '../services/UserLoginService'
-import { Logout } from '../types/UserTypes'
+import { Login, Logout } from '../types/UserTypes'
 
 
 type BienvenidaProp = {
@@ -12,11 +12,13 @@ type BienvenidaProp = {
 
 const image = require("../assets/Background.jpg")
 const Bienvenida: React.FC<BienvenidaProp> = ({ navigation }) => {
-  const { user,loginUser, isLoggedIn, toggleIsLoggedIn } = React.useContext(userContext)
+  const { user,loginUser,handleLoginUser, isLoggedIn, toggleIsLoggedIn } = React.useContext(userContext)
 
   const handleLogOut = async () => {
     const msg: Logout = await postLogoutUser();
     if (msg != null) {
+      const noUser:Login = {name:'',password:''}
+      handleLoginUser(noUser)
       toggleIsLoggedIn()
       Alert.alert(
         'Sesión cerrada',
@@ -29,7 +31,13 @@ const Bienvenida: React.FC<BienvenidaProp> = ({ navigation }) => {
       Alert.alert('Error al cerrar sesión')
     }
   }
-
+  const handleName = () => {
+    if (loginUser.name == '') {
+      return user.name
+    } else {
+      return loginUser.name
+    }
+  } 
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.imageStyle}>
@@ -38,7 +46,7 @@ const Bienvenida: React.FC<BienvenidaProp> = ({ navigation }) => {
           </TouchableOpacity> : null
           
         }
-        {isLoggedIn ? <Text style={styles.welcomeStyle}>Bienvenido, {user.name == null?user.name:loginUser.name}</Text> :
+        {isLoggedIn ? <Text style={styles.welcomeStyle}>Bienvenido,{handleName()}</Text> :
           <Text style={styles.welcomeStyle}>Bienvenido</Text>}
         {isLoggedIn ?
           <Text style={styles.messageStyle}>Tampoco hay nada muy interesante, iniciaste sesión pa' na'</Text> :
