@@ -30,7 +30,7 @@ export const postLogoutUser = async () => {
 export const postLoginUser = async (LoginUser: Login) => {
     const response = await postLogin(`${USER_IP_API}${USER_PORT_API}${USER_API}${USER_LOGIN_API}`, LoginUser)
     if (response.status == 200) {
-        const loginCookie = response.headers.get('LoginCookie')
+        const loginCookie = response.headers.get('jwt')
         if (loginCookie) {
             await AsyncStorage.setItem('LoginCokie', loginCookie)
         }
