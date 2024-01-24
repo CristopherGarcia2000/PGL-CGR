@@ -7,6 +7,7 @@ import Login from '../screens/Login';
 import { userContext } from './UserContext';
 import TabNavigation from './TabNavigation';
 import Register from '../screens/Register';
+import Recorder from '../screens/Recorder';
 
 
 const image = require("../assets/Background.jpg")
@@ -50,6 +51,7 @@ const AppDrawer = () => {
             {isLoggedIn?null:
             <Drawer.Screen name="Login" component={Login}/>
             }
+            <Drawer.Screen name="Recorder" component={Recorder}/>
           </Drawer.Navigator>
       </NavigationContainer>   
       </ImageBackground>

@@ -3,7 +3,7 @@ import { Login, Register } from "../types/UserTypes"
 import { postLogin, postLogout, postRegister } from "./RequestService"
 
 
-const USER_IP_API = "http://192.168.1.38" //Usar la IP del internet de mi ordenador
+const USER_IP_API = "http://172.16.102.252" //Usar la IP del internet de mi ordenador
 const USER_PORT_API = ":8888"
 const USER_API = "/users/"
 const USER_REGISTER_API = "register"
